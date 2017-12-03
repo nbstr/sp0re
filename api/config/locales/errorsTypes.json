@@ -1,0 +1,82 @@
+{
+	"unknown_error":{
+		"en":"There is a problem with the server, please contact the support",
+		"fr": "",
+		"nl": ""
+	},
+	"no_file": {
+		"en": "You didn't upload any picture",
+		"fr": "Vous n'avez envoyé aucune image",
+		"nl": ""
+	},
+	"email_not_confirmed":{
+		"en": "Your email address has not been confirmed",
+		"fr": "Votre addresse email n'a pas été validée",
+		"nl": ""
+	},
+	"login_failed":{
+		"en": "The email and the password don't match",
+		"fr": "L'adresse email et le mot de passe ne correspondent pas",
+		"nl": ""
+	},
+	"authentication":{
+		"en":"You have been disconnected, please try to log in again",
+		"fr": "Vous avez été déconnecté, veuillez essayer de vous reconnecter",
+		"nl": ""
+	},
+	"email_exists":{
+		"en": "The address email is already used by another user",
+		"fr": "L'adresse email est déjà utilisée par un autre utilisateur",
+		"nl": ""
+	},
+	"passwords_error":{
+		"en": "The password does not match the password repeat",
+		"fr": "Le mot de passe est différent du mot de passe de confirmation",
+		"nl": ""
+	},
+	"required":{
+		"en": "The field '%s' is required",
+		"fr": "Le champ '%s' est requis",
+		"nl": ""
+	},
+	"validation":{
+		"en": "The field '%s' must be of type '%s'",
+		"fr": "Le champ '%s' doit être de type '%s'",
+		"nl": ""
+	},
+	"not_allowed":{
+		"en": "You are not allowed to do this", 
+		"fr": "Vous n'êtes pas autorisé à faire cela",
+		"nl": ""
+	},
+	"user_error":{
+		"en": "You are not allowed to do this", 
+		"fr": "Vous n'êtes pas autorisé à faire cela",
+		"nl": ""
+	},
+	"old_password_error":{
+		"en": "Your old password is wrong", 
+		"fr": "Votre ancien mot de passe est erroné",
+		"nl": ""
+	},
+	"unique":{
+		"en": "The value of the field '%s' is already used", 
+		"fr": "La valeur du champ '%s' est déjà utilisée",
+		"nl": ""
+	},
+	"in":{
+		"en": "The value of the field '%s' is not valid", 
+		"fr": "La valeur du champ '%s' n'est pas valide",
+		"nl": ""
+	},
+	"min_numeric":{
+		"en": "The value '%s' is lowest than the min value", 
+		"fr": "La valeur '%s' est plus petite que la valeur minimum",
+		"nl": ""
+	},
+	"max_numeric":{
+		"en": "The value '%s' is higher than the max value", 
+		"fr": "La valeur '%s' est plus élevé que la valeur maximum",
+		"nl": ""
+	}
+}

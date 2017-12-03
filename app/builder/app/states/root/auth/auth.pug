@@ -1,0 +1,177 @@
+.auth.wrapper.fixed-header.menu-pin
+    .login-wrapper
+      //- START Login Background Pic Wrapper
+      .bg-pic
+        //- START Background Pic
+        img.lazy(src='assets/img/demo/stefan-stefancik-105376.jpg', data-src='assets/img/demo/stefan-stefancik-105376.jpg', data-src-retina='assets/img/demo/stefan-stefancik-105376.jpg', alt='')
+        //- END Background Pic
+        //- START Background Caption
+        .bg-caption.pull-bottom.sm-pull-bottom.text-white.p-l-20.m-b-20
+          //- h2.semi-bold.text-white
+            | Turn hesitating visitors
+            br
+            | into paying customers.
+          p.small
+            | copyright © 2017 HEY.
+        //- END Background Caption
+      //- END Login Background Pic Wrapper
+      //- START Login Right Container
+      .login-container.bg-white
+        .p-l-50.m-l-20.p-r-50.m-r-20.p-t-50.m-t-30.sm-p-l-15.sm-p-r-15.sm-p-t-40
+          img(src='assets/img/logo.png', alt='logo', data-src='assets/img/logo.png', data-src-retina='assets/img/logo_2x.png', width='120')
+          p.p-t-35 Sign into your account
+          //- START Login Form
+          form#form-login.p-t-15(role='form', action='index.html')
+            //- START Form Control
+            .form-group.form-group-default
+              label Login
+              .controls
+                input.form-control(type='text', name='username', placeholder='User Name', required='')
+            //- END Form Control
+            //- START Form Control
+            .form-group.form-group-default
+              label Password
+              .controls
+                input.form-control(type='password', name='password', placeholder='Credentials', required='')
+            //- START Form Control
+            .row
+              .col-md-6.no-padding.sm-p-l-10
+                .checkbox
+                  input#checkbox1(type='checkbox', value='1')
+                  label(for='checkbox1') Keep Me Signed in
+              .col-md-6.d-flex.align-items-center.justify-content-end
+                a.text-info.small(href='mailto:info@get-hey.com') Help? Contact Support
+            //- END Form Control
+            button.btn.btn-primary.btn-cons.m-t-10(type='submit') Sign in
+          //- END Login Form
+          //- .pull-bottom.sm-pull-bottom
+            .m-b-30.p-r-80.sm-m-t-20.sm-p-r-15.sm-p-b-20.clearfix
+              .col-sm-3.col-md-2.no-padding
+                img.m-t-5(alt='', data-src='assets/img/demo/pages_icon.png', data-src-retina='assets/img/demo/pages_icon_2x.png', height='60', src='assets/img/demo/pages_icon.png', width='60')
+              .col-sm-9.no-padding.m-t-10
+                p
+                  small
+                    | Create a pages account. If you have a facebook account, log into it for this
+                    | process. Sign in with 
+                    a.text-info(href='#') Facebook
+                    |  or 
+                    a.text-info(href='#') Google
+      //- END Login Right Container
+    //- START OVERLAY
+    .overlay.hide(data-pages='search')
+      //- BEGIN Overlay Content !
+      .overlay-content.has-results.m-t-20
+        //- BEGIN Overlay Header !
+        .container-fluid
+          //- BEGIN Overlay Logo !
+          img.overlay-brand(src='assets/img/logo.png', alt='logo', data-src='assets/img/logo.png', data-src-retina='assets/img/logo_2x.png', width='78', height='22')
+          //- END Overlay Logo !
+          //- BEGIN Overlay Close !
+          a.close-icon-light.overlay-close.text-black.fs-16(href='#')
+            i.pg-close
+          //- END Overlay Close !
+        //- END Overlay Header !
+        .container-fluid
+          //- BEGIN Overlay Controls !
+          input#overlay-search.no-border.overlay-search.bg-transparent(placeholder='Search...', autocomplete='off', spellcheck='false')
+          br
+          .inline-block
+            .checkbox.right
+              input#checkboxn(type='checkbox', value='1', checked='checked')
+              label(for='checkboxn')
+                i.fa.fa-search
+                |  Search within page
+          .inline-block.m-l-10
+            p.fs-13 Press enter to search
+          //- END Overlay Controls !
+        //- BEGIN Overlay Search Results, This part is for demo purpose, you can add anything you like !
+        .container-fluid
+          span
+            strong suggestions :
+          span#overlay-suggestions
+          br
+          .search-results.m-t-40
+            p.bold Pages Search Results
+            .row
+              .col-md-6
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.bg-success.text-white.inline.m-t-10
+                    div
+                      img(width='50', height='50', src='assets/img/profiles/avatar.jpg', data-src='assets/img/profiles/avatar.jpg', data-src-retina='assets/img/profiles/avatar2x.jpg', alt='')
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      span.semi-bold.result-name ice cream
+                      |  on pages
+                    p.hint-text via john smith
+                //- END Search Result Item !
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.bg-success.text-white.inline.m-t-10
+                    div T
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      span.semi-bold.result-name ice cream
+                      |  related topics
+                    p.hint-text via pages
+                //- END Search Result Item !
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.bg-success.text-white.inline.m-t-10
+                    div
+                      i.fa.fa-headphones.large-text
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      span.semi-bold.result-name ice cream
+                      |  music
+                    p.hint-text via pagesmix
+                //- END Search Result Item !
+              .col-md-6
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.bg-info.text-white.inline.m-t-10
+                    div
+                      i.fa.fa-facebook.large-text
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      span.semi-bold.result-name ice cream
+                      |  on facebook
+                    p.hint-text via facebook
+                //- END Search Result Item !
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.bg-complete.text-white.inline.m-t-10
+                    div
+                      i.fa.fa-twitter.large-text
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      | Tweats on
+                      span.semi-bold.result-name  ice cream
+                    p.hint-text via twitter
+                //- END Search Result Item !
+                //- BEGIN Search Result Item !
+                div
+                  //- BEGIN Search Result Item Thumbnail !
+                  .thumbnail-wrapper.d48.circular.text-white.bg-danger.inline.m-t-10
+                    div
+                      i.fa.fa-google-plus.large-text
+                  //- END Search Result Item Thumbnail !
+                  .p-l-10.inline.p-t-5
+                    h5.m-b-5
+                      | Circles on
+                      span.semi-bold.result-name  ice cream
+                    p.hint-text via google plus
+                //- END Search Result Item !
+        //- END Overlay Search Results !
+      //- END Overlay Content !
+    //- END OVERLAY

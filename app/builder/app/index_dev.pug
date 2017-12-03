@@ -1,0 +1,26 @@
+doctype html
+html(lang="en_US" data-ng-app="app")
+	head
+		meta(charset="UTF-8")
+		meta(name="fragment" content="!")
+		meta(http-equiv='content-type', content='text/html;charset=UTF-8')
+		title sp0re®
+		link(rel="icon" type="image/png" href="assets/favicon.png?size=16")
+
+		//- SCRIPT
+		script(type="text/javascript" src="js/lib.js")
+		script(type="text/javascript" src="js/code.js")
+
+		//- DEV
+		script(id="live-reload" src="http://localhost:35729/livereload.js")
+		script(id="browser-sync" async src='http://localhost:3000/browser-sync/browser-sync-client.js?v=2.18.6')
+
+
+		link(href="css/main.css" rel="stylesheet")
+	
+	body(data-ng-cloak)
+		.app-wrapper(data-ng-if="app_loaded" data-ng-class="{'app-loaded': app_loaded}")
+			//- .header-wrap(header data-ng-hide="GLOBAL.no_header")
+			.nb-animation-wrapper
+				.main-wrapper.nb-animated.nb-fade(ui-view="main")
+			//- .footer-wrap(footer data-ng-class="{ 'z-back': USER_NOTIFICATIONS.visible}")

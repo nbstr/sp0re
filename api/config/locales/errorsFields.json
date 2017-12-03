@@ -1,0 +1,30 @@
+{
+	"password" :{
+		"fr": "mot de passe"
+	},
+	"name" :{
+		"fr": "nom"
+	},
+	"password_repeat" :{
+		"fr": "confirmation du mot de passe",
+		"en": "password confirmation"
+	},
+	"first_name" :{
+		"fr": "prénom",
+		"en": "first name"
+	},
+	"last_name" :{
+		"fr": "nom",
+		"en": "last name"
+	},
+	"birthdate" :{
+		"fr": "année de naissance"
+	},
+	"mobile_phone" :{
+		"fr": "numéro de téléphone",
+		"en": "mobile phone"
+	},
+	"address" :{
+		"fr": "adresse"
+	}
+}

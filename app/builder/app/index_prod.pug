@@ -1,0 +1,85 @@
+doctype html
+html(data-ng-app="app")
+	head
+		//-head content goes here
+		meta(charset="UTF-8")
+		meta(name="fragment" content="!")
+		meta(name="format-detection" content="telephone=no")
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		meta(name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width")
+		base(href="/")
+		
+		link(rel="icon", type="image/png", href="assets/favicon.png")
+
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		| <!--[if lte IE 9]>
+		| 	  <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		| 	  <script>
+		| 		  alert("Your browser seems too old for this website, please consider updgrading it or use Google Chrome or Firefox.");	
+		| 	  </script>
+		| <![endif]-->
+		| <!--[if lte IE 8]>
+		|     <script>
+		|         document.createElement('ng-include');
+		|         document.createElement('ng-pluralize');
+		|         document.createElement('ng-view');
+		|         // Optionally these for CSS
+		|         document.createElement('ng:include');
+		|         document.createElement('ng:pluralize');
+		|         document.createElement('ng:view');
+		|     </script>
+		| <![endif]-->
+		| <!--[if IE]>
+		| 	<link rel="stylesheet" type="text/css" href="css/ie.css" />
+		| <![endif]-->
+		<!-- SEO -->
+		title(data-ng-bind="seo.title[get_language()]")
+			| SEO title
+		meta(name="author" content="Nicolas Bernier")
+		meta(name="description" content="SEO content" data-ng-content="seo.description[get_language()]")
+		meta(name="keywords" content="SEO keywords" data-ng-content="seo.keywords[get_language()]")
+		
+		meta(name="robots" content="index")
+		meta(http-equiv="Content-Language" content="fr")
+		link(rel="canonical" href="https://my_link.com")
+
+		meta(name="google-signin-clientid" content="986436954448-qgtm6nt2qq4von1ljbmnn647fjk0vlj2.apps.googleusercontent.com")
+		meta(name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email")
+		meta(name="google-signin-requestvisibleactions" content="http://schema.org/AddAction")
+		meta(name="google-signin-cookiepolicy" content="single_host_origin")
+
+		
+		<!-- OPEN GRAPH -->
+		meta(property="og:type" content="website")
+		
+		meta(property="og:title" content="Title" data-ng-content="seo.title[get_language()]")
+		meta(property="og:description" content="Description" data-ng-content="seo.description[get_language()]")
+
+		meta(property="og:url" content="https://site.com")
+		meta(property="og:site_name" content="site name")
+		meta(property="og:image" content="https://site_image.png")
+		meta(property="og:image:secure_url" content="https://site_image_secure.png")
+		meta(property="og:image:type" content="image/png")
+		meta(property="og:image:width" content="1200")
+		meta(property="og:image:height" content="630")
+
+		link(rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png")
+		link(rel="apple-touch-icon" sizes="57x57" href="assets/ico/apple-touch-icon-57x57.png")
+		link(rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-touch-icon-72x72.png")
+		link(rel="apple-touch-icon" sizes="76x76" href="assets/ico/apple-touch-icon-76x76.png")
+		link(rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-touch-icon-114x114.png")
+		link(rel="apple-touch-icon" sizes="120x120" href="assets/ico/apple-touch-icon-120x120.png")
+		link(rel="apple-touch-icon" sizes="144x144" href="assets/ico/apple-touch-icon-144x144.png")
+		link(rel="apple-touch-icon" sizes="152x152" href="assets/ico/apple-touch-icon-152x152.png")
+		<!-- STYLE -->
+		//-link(href="dist/lib.min.css" rel="stylesheet")
+		link(href="dist/main.min.css" rel="stylesheet")
+		<!-- SCRIPT -->
+		script(type="text/javascript" src="dist/lib.min.js")
+		script(type="text/javascript" src="dist/code.min.js")
+	body.nb-fade(resize scroll-controll no-animated-class="appAnimation" data-ng-cloak)
+		.app-wrapper(data-ng-if="app_loaded" data-ng-class="{'app-loaded': app_loaded}")
+			.nb-animation-wrapper
+				.main-wrapper( ui-view)
+		.pokes(nb-poke data-ng-class="{'app-loaded': app_loaded}")

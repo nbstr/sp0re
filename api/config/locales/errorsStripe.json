@@ -1,0 +1,57 @@
+{
+	"invalid_number": {
+		"en": "The card number is not a valid credit card number.",
+		"fr": "Le numéro de carte n'est pas un numéro de carte valide",
+		"nl": ""
+	},
+	"invalid_expiry_month": {
+		"en": "The card's expiration month is invalid.",
+		"fr": "Le mois d'expiration de la carte est invalide",
+		"nl": ""
+	},
+	"invalid_expiry_year": {
+		"en": "The card's expiration year is invalid.",
+		"fr": "L'année d'expiration de la carte est invalide",
+		"nl": ""
+	},
+	"invalid_cvc": {
+		"en": "The card's security code is invalid.",
+		"fr": "Le code de sécurité de la carte est invalide",
+		"nl": ""
+	},
+	"incorrect_number": {
+		"en": "The card number is incorrect.",
+		"fr": "Le numéro de la carte est incorrect",
+		"nl": ""
+	},
+	"expired_card": {
+		"en": "The card has expired.",
+		"fr": "La carte est expirée",
+		"nl": ""
+	},
+	"incorrect_cvc": {
+		"en": "The card's security code is incorrect.",
+		"fr": "Le code de sécurité de la carte est incorrecte",
+		"nl": ""
+	},
+	"incorrect_zip": {
+		"en": "The card's zip code failed validation.",
+		"fr": "Le code postal de la carte n'est pas valide",
+		"nl": ""
+	},
+	"card_declined": {
+		"en": "The card was declined.",
+		"fr": "La carté a été déclinée",
+		"nl": ""
+	},
+	"missing": {
+		"en": "There is no card on a customer that is being charged.",
+		"fr": "Il n'y pas pas de carte enregistrée pour le client qui doit être crédité",
+		"nl": ""
+	},
+	"processing_error": {
+		"en": "An error occurred while processing the card.",
+		"fr": "Une erreur est survenue lors du traitement de la carte",
+		"nl": ""
+	}
+}

@@ -1,0 +1,253 @@
+
+.tooltipCustom {
+    span.tooltipCustomContent {
+        display: none;
+    }
+    &:hover {
+        cursor: pointer;
+        span.tooltipCustomContent {
+            z-index: 10000;
+            display: block;
+            font-weight: normal;
+            text-align: left;
+            position: fixed;
+            overflow: hidden;
+            min-width: 150px;
+            width: $terminal_w;
+            word-wrap:break-word;
+            max-width: $terminal_w;
+            background-color: RGBA(0, 0, 0, 1.00);
+            border: 1px solid RGBA(62, 76, 95, 1.00);
+            padding: 10px 20px;
+            color: $ink_terminal;
+        }
+    }
+}
+
+.dsk-elements {
+    font-family: $font_terminal;
+    .col {
+        float: left;
+    }
+    .dsk-element {
+        background-color: transparent;
+        border: 1px solid rgba(0, 0, 0, 0);
+        padding: 5px;
+        cursor: pointer;
+        text-align: center;
+        margin: 10px;
+        img {
+            width: 40px;
+        }
+        p {
+            margin: 0;
+            font-family: $font_terminal;
+            font-size: $font_sz_terminal;
+            color: $ink_terminal;
+        }
+        &:hover {
+            background-color: RGBA(191, 207, 210, .30);
+            border: 1px solid $ink_terminal;
+        }
+    }
+}
+
+.dsk-windows {
+    font-family: $font_terminal;
+    .dsk-window {
+        z-index: 1 !important;
+        position: fixed !important;
+        min-width: 280px;
+        border: 1px solid $ink_terminal_blue;
+        box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.59);
+        .head {
+            padding: 5px;
+            background-color: $ink_terminal_inactive_window;
+            .title {
+                font-size: $font_sz_terminal;
+                color: $ink_terminal;
+                padding-left: 28px;
+            }
+            .head-i {
+                position: absolute;
+                left: 8px;
+                top: 6px;
+                width: 14px;
+            }
+            .action {
+                cursor: pointer;
+                position: absolute;
+                top: 4px;
+                padding: 8px;
+                border-radius: 1px;
+                background-position: center;
+                background-repeat: no-repeat;
+                &:hover {
+                    background-color: $ink_terminal_dark_blue;
+                }
+                &.close {
+                    background-image: url($a_root + '_terminal/dsk/asset-close.png');
+                    background-size: 65%;
+                    right: 5px;
+                }
+                &.refresh {
+                    background-image: url($a_root + '_terminal/i/regen.png');
+                    background-size: 80%;
+                    right: 25px;
+                }
+            }
+        }
+        &.active {
+            z-index: 2 !important;
+            .head {
+                background-color: $ink_terminal_active_window;
+            }
+        }
+        .body {
+            // min-height: 100px;
+            padding: 20px;
+            background-color: $ink_terminal_dark_blue;
+        }
+    }
+}
+
+.dsk-window .body {
+    .list {
+        font-size: $font_sz_terminal;
+        max-height: 200px;
+        overflow: auto;
+        .list-line {
+            cursor: pointer;
+            padding: 5px;
+            background-color: transparent;
+            color: $ink_terminal;
+            &.success {
+                color: $ink_terminal_green;
+            }
+            &:hover {
+                background-color: RGBA(60, 63, 68, 1.00);
+            }
+        }
+        .log-line {
+            padding: 16px 0;
+            background-color: transparent;
+            color: $ink_terminal;
+            border-bottom: 1px solid $ink_terminal_border;
+            &.dngr {
+                color: $ink_terminal_danger;
+            }
+            span {
+                vertical-align: bottom;
+            }
+            &:last-of-type {
+                border-bottom: none;
+            }
+            span.i-link {
+                padding: 5px;
+                background-color: RGBA(43, 46, 51, 1.00);
+                border: 1px solid $ink_terminal_border;
+                color: $ink_terminal;
+                cursor: pointer;
+                &:hover {
+                    background-color: RGBA(60, 63, 68, 1.00);
+                    border: 1px solid $ink_terminal;
+                }
+            }
+            span.i-bt {
+                img {
+                    height: 18px;
+                    top: 3px;
+                }
+            }
+            span.i-warning {
+                padding-right: 10px;
+                img {
+                    height: 18px;
+                    top: 3px;
+                }
+            }
+            span.i-success {
+                padding-right: 10px;
+                img {
+                    height: 18px;
+                    top: 3px;
+                }
+            }
+        }
+    }
+    .profile-photo {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border: 1px solid #3E4C5F;
+        img {
+            width: 100%;
+        }
+    }
+    .profile-nfo {
+        color: $ink_terminal;
+        padding-left: 90px;
+        min-height: 70px;
+    }
+    .form-wrap {
+        font-size: $font_sz_terminal;
+        hr {
+            padding: 0;
+            border: none;
+            border-bottom: 1px solid $ink_terminal_border;
+            margin: 20px auto;
+        }
+        label {
+            color: $ink_terminal;
+        }
+        .input-group-wrp {
+            padding-top: 10px;
+            position: relative;
+            .input-wrp {
+                &:before {
+                    content: " ";
+                    position: absolute;
+                    left: 6px;
+                    top: 0;
+                    background-image: url($a_root + '_terminal/dsk/asset-terminal.png');
+                    background-size: 80%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    display: inline-block;
+                    width: 18px;
+                    height: 100%;
+                }
+                padding-right: 50px;
+                input {
+                    font-size: $font_sz_terminal;
+                    border: 1px solid $ink_terminal;
+                    border-radius: 0;
+                    background-color: transparent;
+                    color: $ink_terminal;
+                    width: 100%;
+                    padding: 5px 16px;
+                    padding-left: 26px;
+                    margin: 0;
+                    display: inline-block;
+                }
+            }
+            button {
+                font-size: $font_sz_terminal;
+                width: 40px;
+                position: absolute;
+                right: 0;
+                top: 10px;
+                padding: 5px 0;
+                text-align: center;
+                background-color: RGBA(43, 46, 51, 1.00);
+                border: 1px solid $ink_terminal_border;
+                border-radius: 0;
+                color: $ink_terminal;
+                &:hover {
+                    background-color: RGBA(60, 63, 68, 1.00);
+                    border: 1px solid $ink_terminal;
+                }
+            }
+        }
+    }
+}

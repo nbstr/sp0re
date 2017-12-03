@@ -1,0 +1,15 @@
+.home {
+    height: 100%;
+    padding: 10px;
+
+    cursor: default;
+    &.cursor-loading,
+    &.cursor-loading * {
+        cursor: wait !important; // cursor: url(smiley.gif),url(myBall.cur),auto !important;
+    }
+
+    @include user-select();
+
+    background-image: url($a_root + '_terminal/bg-tile.png'),
+    radial-gradient(at top, #273541, #0b0b0c);
+}

@@ -1,0 +1,163 @@
+
+- webpage to reset password
+
+- file /config/*.js that is loaded in hooks to enable services like Log, DB, Email...
+
+- One-to-one: use bootstrap to add removeOlder (in Address) and beforeDestroy (in User)
+
+- for simple create/update, use options in modelService to specify the permission to do it (ie: update only for the owner of for user that received the permission....)
+
+- DB handle array create (it works, the call of DB.get must be changed)
+
+✅🔑🗝💎🍪🙂
+💰🏆
+
+// NOTIFICATIONS
+
+MODEL : 
+	- date : date happened
+	- user_id : objectid : owner
+	- count : int
+	- type : string : 'question.answer'
+	- read : bool
+	- version : int
+	- hidden : bool
+
+# someone answered your question
+	result : 5 person answered your question.
+	type: 'question.answer'
+	metadata :
+		- answers : array of [usernames, answerbegin(30chars), picture url, userid]
+
+# someone upvoted your question
+	result : 5 person upvoted your question.
+	type: 'question.upvote'
+	metadata :
+		- upvotes : array of [usernames, picture url, userid]
+
+# someone answered your comment
+	result : John Cuzak and 5 person replied to your comment.
+	type: 'comment.answer'
+	metadata :
+		- answers : array of [usernames, answerbegin(30chars), picture url, userid]
+
+# someone upvoted your comment
+	result : 5 person upvoted your comment.
+	type: 'comment.upvote'
+	metadata :
+		- upvotes : array of [usernames, picture url, userid]
+
+sudo mongod --logpath /data/logs/mongo.log --port 21989 --fork
+
+// HISTORY
+
+MODEL : 
+	- date : date happened
+	- user_id : objectid : owner
+	- count : int
+	- type : string : 'question.answer'
+	- read : bool
+	- version : int
+	- hidden : bool
+	- question_id : objectid : question
+	- comment_id : objectid : comment
+	- answer_id : objectid : answer
+
+# you answered a question
+	result : 5 person answered your question.
+	type: 'question.answer'
+	metadata :
+		- answers : array of [usernames, answerbegin(30chars), picture url, userid]
+
+# you upvoted a question
+	result : 5 person upvoted your question.
+	type: 'question.upvote'
+	metadata :
+		- upvotes : array of [usernames, picture url, userid]
+
+# you answered a comment
+	result : John Cuzak and 5 person replied to your comment.
+	type: 'comment.answer'
+	metadata :
+		- answers : array of [usernames, answerbegin(30chars), picture url, userid]
+
+# you upvoted a comment
+	result : 5 person upvoted your comment.
+	type: 'comment.upvote'
+	metadata :
+		- upvotes : array of [usernames, picture url, userid]
+
+# UNKN0WN
+
+- comment faire pour incermenter un attribut en une requete DB
+- setup le backend live, sécuriser la DB
+- certificat SSL
+
+# SSL CERTIFICATE
+## TODO AUTOMATE PROCESS EVERY 6 MONTHS
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at
+   /etc/letsencrypt/live/hey-hey.co-0001/fullchain.pem. Your cert will
+   expire on 2017-10-15. To obtain a new or tweaked version of this
+   certificate in the future, simply run letsencrypt-auto again. To
+   non-interactively renew *all* of your certificates, run
+   "letsencrypt-auto renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+$ ./letsencrypt-auto certonly --manual --email info@hey-hey.co -d hey-hey.co
+
+# MONGODB SECURITY
+https://www.cyberciti.biz/faq/how-to-secure-mongodb-nosql-production-database/
+
+# MONGODB PROCESSES
+https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/
+
+# NODE AKISMET
+https://www.npmjs.com/package/node-akismet
+
+# SOURCES
+http://stackoverflow.com/questions/19734154/followers-following-database-structure
+
+http://thehackernews.com/2017/03/learn-hacking-training.html?utm_source=Facebook&utm_medium=Facebook_Ads&utm_campaign=Prospecting_THN_Editorial_AtoZhacking_3.13.17
+
+https://akismet.com/development/api/#comment-check
+https://akismet.com/account/
+
+https://ace.c9.io/#nav=howto
+https://github.com/angular-ui/ui-ace
+https://github.com/ajaxorg/ace/tree/master/lib/ace/theme
+
+https://github.com/OneSignal/emoji-picker
+https://github.com/terranisu/angular-emoji-picker
+https://github.com/Coraza/angular-emoji-popup
+
+https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298#.ym40gferm
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04
+
+https://github.com/request/request#requestoptions-callback
+
+# KEYBOARD
+ █████╗ ██████╗  ██████╗██████╗ ███████╗███████╗ ██████╗ ██╗  ██╗██╗     ██╗██╗  ██╗██╗     ███╗   ███╗███╗   ██╗ ██████╗ ██████╗  ██████╗  ██████╗ ███████╗████████╗██╗   ██╗        ██╗    ██╗██╗  ██╗██╗   ██╗                     ██╗██╗         ██╗██╗ 
+██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝██╔════╝██╔════╝ ██║  ██║██║     ██║██║ ██╔╝██║     ████╗ ████║████╗  ██║██╔═══██╗██╔══██╗██╔═══██╗ ██╔══██╗██╔════╝╚══██╔══╝██║   ██║        ██║    ██║╚██╗██╔╝ ██╗ ██╔╝                    ██╔╝╚██╗       ██╔╝╚██╗
+███████║██████╔╝██║     ██║  ██║█████╗  █████╗  ██║ ████╗███████║██║     ██║█████╔╝ ██║     ██╔████╔██║██╔██╗ ██║██║   ██║██████╔╝██║   ██║ ██████╔╝███████╗   ██║   ██║   ██║        ██║ █╗ ██║ ╚███╔╝   ████╔╝                    ██╔╝  ╚██╗█████╗██║  ██║
+██╔══██║██╔══██╗██║     ██║  ██║██╔══╝  ██╔══╝  ██║   ██║██╔══██║██║██   ██║██╔═██╗ ██║     ██║╚██╔╝██║██║╚██╗██║██║   ██║██╔═══╝ ██║  ███║ ██╔══██╗╚════██║   ██║   ██║   ██║        ██║███╗██║ ██╔██╗    ██╔╝                     ╚██╗  ██╔╝╚════╝██║  ██║
+██║  ██║██████╔╝╚██████╗██████╔╝███████╗██║     ╚██████╔╝██║  ██║██║╚█████╔╝██║  ██╗███████╗██║ ╚═╝ ██║██║ ╚████║╚██████╔╝██║     ╚█████ ██╗██║  ██║███████║   ██║   ╚██████╔╝███████╗╚███╔███╔╝██╔╝ ██╗   ██║   ███████╗███████╗██╗ ╚██╗██╔╝       ╚██╗██╔╝
+╚═╝  ╚═╝╚═════╝  ╚═════╝╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝      ╚═══════╝╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝         ╚═╝╚═╝ 
+
+ ██████╗  ██████╗  ██████╗  ██████╗ ██╗     ███████╗
+██╔════╝ ██╔═══██╗██╔═══██╗██╔════╝ ██║     ██╔════╝
+██║ ████╗██║   ██║██║   ██║██║ ████╗██║     █████╗  
+██║   ██║██║   ██║██║   ██║██║   ██║██║     ██╔══╝  
+╚██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████╗
+ ╚═════╝  ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+
+# UPGRADE BACKEND ARCHITECTURE
+- no more question/comment/report types.. only entry type
+
+1. create entry model
+2. link answers to entry model
+3. [BE] create entry api

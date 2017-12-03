@@ -1,0 +1,284 @@
+.home.wrapper.wrapper-no-header(data-ng-class="{'cursor-loading':cursorLoading}" shortcut)
+	
+	.dsk-elements
+
+		.col
+
+			//- CLIENTS LIST
+			.dsk-element(data-ng-click="switchWindow('market', true)")
+				img(src="assets/_terminal/dsk/icon-list.png")
+				p Market
+
+			//- USER LIST
+			//- .dsk-element(data-ng-click="switchWindow('user_list', true)")
+				img(src="assets/_terminal/dsk/icon-list-1.png")
+				p User List
+
+			//- WALLET
+			.dsk-element(data-ng-click="switchWindow('wallets', true)")
+				img(src="assets/_terminal/dsk/icon-wallet.png")
+				p Wallets
+
+			//- PROFILE
+			.dsk-element(data-ng-click="switchWindow('profile', true)")
+				img(src="assets/_terminal/i/computer.png")
+				p Profile
+
+			//- LOG
+			.dsk-element(data-ng-click="switchWindow('log', true)")
+				img(src="assets/_terminal/dsk/icon-log.png")
+				p Log
+
+
+	.dsk-windows
+
+		//- ███╗   ███╗ █████╗ ██████╗ ██╗  ██╗███████╗████████╗
+		//- ████╗ ████║██╔══██╗██╔══██╗██║ ██╔╝██╔════╝╚══██╔══╝
+		//- ██╔████╔██║███████║██████╔╝█████╔╝ █████╗     ██║   
+		//- ██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝     ██║   
+		//- ██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██╗███████╗   ██║   
+		//- ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+		.dsk-window.market(
+			data-ng-show="WINDOW.market.visible",
+			data-drag="true" jqyoui-draggable="{onStop:'windowDragStop', handle: '.head'}",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('market')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'market' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-list.png")
+				.title Market
+				.action.close(data-ng-click="switchWindow('market', false)")
+				.action.refresh(data-ng-click="getbalances(getmarketsummaries)")
+			.body
+				.list(data-ng-show="!_MARKET && !_MARKET_LOADED")
+					.list-line Loading...
+				.list(data-ng-show="!_MARKET && _MARKET_LOADED")
+					.list-line You haven't subscribed to any market..
+				.list(data-ng-show="_MARKET && _MARKET_LOADED")
+					.list-line.tooltipCustom(data-ng-class="{'success': M.OpenBuyOrders > M.OpenSellOrders}" data-ng-repeat="M in _MARKET | filter:{'MarketName':market_filter} | orderBy:'MarketName' track by $index" data-ng-click="watchMarket(M.MarketName, true)" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent
+							span(data-ng-if="M.__user.usdt_balance")
+								strong USDT :&nbsp;
+								span {{ M.__user.usdt_balance * M.Last }}
+								br
+							strong B/S :&nbsp;
+							span {{ M.OpenBuyOrders }}/{{ M.OpenSellOrders }}
+							br
+							strong Yesterday :&nbsp;
+							span {{ M.PrevDay }}
+
+						span {{ M.MarketName }} : {{ M.Last }} / {{ M.__user.Balance }} ({{ M.__user.Balance * M.Last }})
+
+				.form-wrap
+					hr
+					label Market NAME:
+					.input-group-wrp
+						.input-wrp
+							input(type="text" data-ng-model="market_filter" id="wallets-input")
+						button(type="button") Go
+		.dsk-window.market-detail(
+			data-ng-show="WINDOW.market_detail.visible",
+			data-drag="true" jqyoui-draggable="{onStop:'windowDragStop', handle: '.head'}",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('market_detail')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'market_detail' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-list.png")
+				.title Market
+				.action.close(data-ng-click="switchWindow('market_detail', false)")
+				//- .action.refresh(data-ng-click="getbalances(getmarket_detailsummaries)")
+			.body
+				.list
+					.log-line
+						span.i-bt
+							img(src="assets/_terminal/i/bt.png")
+						span &nbsp;{{ _MARKET_DETAIL.Last | number:8 }}
+					.log-line
+						span {{ ((((_MARKET_DETAIL.Last - _MARKET_DETAIL_HISTORY.PricePerUnit) * _MARKET_DETAIL_HISTORY.Quantity) - _MARKET_DETAIL_HISTORY.Commission) / (_MARKET_DETAIL_HISTORY.PricePerUnit * _MARKET_DETAIL_HISTORY.Quantity))*100 | number:1 }}%
+				
+
+		//- ██████╗ ██████╗  ██████╗ ███████╗██╗██╗     ███████╗
+		//- ██╔══██╗██╔══██╗██╔═══██╗██╔════╝██║██║     ██╔════╝
+		//- ██████╔╝██████╔╝██║   ██║█████╗  ██║██║     █████╗  
+		//- ██╔═══╝ ██╔══██╗██║   ██║██╔══╝  ██║██║     ██╔══╝  
+		//- ██║     ██║  ██║╚██████╔╝██║     ██║███████╗███████╗
+		//- ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚══════╝
+		.dsk-window.profile(
+			data-ng-show="WINDOW.profile.visible",
+			data-drag="true" jqyoui-draggable="{onStop:'windowDragStop', handle: '.head'}",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('profile')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'profile' }")
+			.head
+				img.head-i(src="assets/_terminal/i/computer.png")
+				.title Profile
+				.action.close(data-ng-click="switchWindow('profile', false)")
+			.body
+				.profile-photo
+					img(src="assets/_terminal/i/profile.png")
+				.profile-nfo
+					.line n00bster ({{keyCode}})
+				
+
+		//- ██╗   ██╗███████╗███████╗██████╗       ██╗     ██╗███████╗████████╗
+		//- ██║   ██║██╔════╝██╔════╝██╔══██╗      ██║     ██║██╔════╝╚══██╔══╝
+		//- ██║   ██║███████╗█████╗  ██████╔╝      ██║     ██║███████╗   ██║   
+		//- ██║   ██║╚════██║██╔══╝  ██╔══██╗      ██║     ██║╚════██║   ██║   
+		//- ╚██████╔╝███████║███████╗██║  ██║      ███████╗██║███████║   ██║   
+		//-  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝      ╚══════╝╚═╝╚══════╝   ╚═╝   
+		.dsk-window.user-list(
+			data-ng-show="WINDOW.user_list.visible",
+			data-drag="true" jqyoui-draggable="WINDOW.ng_options",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('user_list')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'user_list' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-list-1.png")
+				.title User List
+				.close(data-ng-click="switchWindow('user_list', false)")
+			.body
+				.list
+					.list-line(data-ng-click="testClick()") n00bster
+					.list-line(data-ng-click="testClick()") cryptoRetard
+					.list-line(data-ng-click="testClick()") unkn0wn
+					.list-line(data-ng-click="testClick()") misterch0c
+
+		//- ██╗    ██╗ █████╗ ██╗     ██╗     ███████╗████████╗
+		//- ██║    ██║██╔══██╗██║     ██║     ██╔════╝╚══██╔══╝
+		//- ██║ █╗ ██║███████║██║     ██║     █████╗     ██║   
+		//- ██║███╗██║██╔══██║██║     ██║     ██╔══╝     ██║   
+		//- ╚███╔███╔╝██║  ██║███████╗███████╗███████╗   ██║   
+		//-  ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝   ╚═╝   
+		.dsk-window.wallets(
+			data-ng-show="WINDOW.wallets.visible",
+			data-drag="true" jqyoui-draggable="WINDOW.ng_options",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('wallets')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'wallets' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-wallet.png")
+				.title Wallets
+				.close(data-ng-click="switchWindow('wallets', false)")
+			.body
+				.list(data-ng-show="!_MARKET && !_MARKET_LOADED")
+					.list-line Loading...
+				.list(data-ng-show="!_MARKET && _MARKET_LOADED")
+					.list-line You haven't subscribed to any market..
+				.list(data-ng-show="_MARKET && _MARKET_LOADED")
+					.list-line.tooltipCustom(data-ng-class="{'success': M.OpenBuyOrders > M.OpenSellOrders}" data-ng-repeat="M in _MARKET | filter:{'MarketName':market_filter} | orderBy:'MarketName' track by $index" data-ng-click="" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent
+							span(data-ng-if="M.__user.usdt_balance")
+								strong USDT :&nbsp;
+								span {{ M.__user.usdt_balance * M.Last }}
+								br
+							strong B/S :&nbsp;
+							span {{ M.OpenBuyOrders }}/{{ M.OpenSellOrders }}
+							br
+							strong Yesterday :&nbsp;
+							span {{ M.PrevDay }}
+
+						span {{ M.MarketName }} : {{ M.Last }} / {{ M.__user.Balance }} ({{ M.__user.Balance * M.Last }})
+
+				.form-wrap
+					hr
+					label Market NAME:
+					.input-group-wrp
+						.input-wrp
+							input(type="text" data-ng-model="market_filter" id="wallets-input")
+						button(type="button") Go
+			//- .body
+				.list
+					.list-line(data-ng-click="testClick()" class="tooltipCustom" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+						span Bittex
+					.list-line(data-ng-click="testClick()" class="tooltipCustom" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+						span Coinbase
+					.list-line(data-ng-click="testClick()" class="tooltipCustom" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+						span Kraken
+					.list-line(data-ng-click="testClick()" class="tooltipCustom" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+						span Wirex
+					.list-line(data-ng-click="testClick()" class="tooltipCustom" cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+						span NEON
+
+		//- ██╗      ██████╗  ██████╗ 
+		//- ██║     ██╔═══██╗██╔════╝ 
+		//- ██║     ██║   ██║██║ ████╗
+		//- ██║     ██║   ██║██║   ██║
+		//- ███████╗╚██████╔╝╚██████╔╝
+		//- ╚══════╝ ╚═════╝  ╚═════╝ 
+		.dsk-window.log(
+			data-ng-show="WINDOW.log.visible",
+			data-drag="true" jqyoui-draggable="WINDOW.ng_options",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('log')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'log' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-log.png")
+				.title Log
+				.close(data-ng-click="switchWindow('log', false)")
+			.body
+				.list
+					.log-line.tooltipCustom(cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 2017.10.27 08:33
+						span System started.
+
+					.log-line.tooltipCustom(cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent
+							| Address: 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+							| TxId: fe41317972699912a9f1c138e0f24abdfabe6e3bd30e3570deaf3f04d4ec739b
+							| date: 08/05/2017
+						span.i-success
+							img(src="assets/_terminal/i/success.png")
+						span You bought&nbsp;
+						span.i-bt
+							img(src="assets/_terminal/i/bt.png")
+						span &nbsp;0.1790
+						span &nbsp;for&nbsp;
+						span.i-link €400
+
+					.log-line.tooltipCustom(cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent
+							| Address: 1DfTQKy1yECDiZ6sFFUFEN5rU5iU7tZ5AN
+							| TxId: 92c501488dba66822f4474f25edaf7268bba3040330894b96686a70d4b561a4b
+							| date: 08/06/2017
+						span.i-success
+							img(src="assets/_terminal/i/success.png")
+						span You bought&nbsp;
+						span.i-bt
+							img(src="assets/_terminal/i/bt.png")
+						span &nbsp;0.1440
+						span &nbsp;for&nbsp;
+						span.i-link €500
+						
+					//- .log-line.dngr.tooltipCustom(cursor-tooltip=".tooltipCustomContent")
+						span.tooltipCustomContent 2017.10.27 08:33
+						span.i-warning
+							img(src="assets/_terminal/i/danger.png")
+						span You are being hacked by&nbsp;
+						span.i-link 1st1
+						span &nbsp;on port B.&nbsp;
+
+		//- ███████╗██╗████████╗███████╗      ██████╗ ███████╗████████╗ █████╗ ██╗██╗     
+		//- ██╔════╝██║╚══██╔══╝██╔════╝      ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██║██║     
+		//- ███████╗██║   ██║   █████╗        ██║  ██║█████╗     ██║   ███████║██║██║     
+		//- ╚════██║██║   ██║   ██╔══╝        ██║  ██║██╔══╝     ██║   ██╔══██║██║██║     
+		//- ███████║██║   ██║   ███████╗      ██████╔╝███████╗   ██║   ██║  ██║██║███████╗
+		//- ╚══════╝╚═╝   ╚═╝   ╚══════╝      ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝
+		.dsk-window.site-detail(
+			data-ng-show="WINDOW.site_detail.visible",
+			data-drag="true" jqyoui-draggable="WINDOW.ng_options",
+			data-jqyoui-options="WINDOW.options",
+			data-ng-mousedown="activateWindow('site_detail')",
+			data-ng-class="{ 'active' : WINDOW.active_window === 'site_detail' }")
+			.head
+				img.head-i(src="assets/_terminal/dsk/icon-site-detail.png")
+				.title Site Detail
+				.close(data-ng-click="switchWindow('site_detail', false)")
+			.body
+				.title
+					.i-flag.f16
+						.flag.be

@@ -1,0 +1,36 @@
+{
+  "name": "hey",
+  "version": "0.0.1",
+  "authors": "ink",
+  "description": "While browsing the web, \"Hey\" will allow you to share with the community.",
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "3.1.1",
+    "underscore": "1.8.3",
+    "angular": "1.6.3",
+    "angular-ui-router": "0.4.0",
+    "ng-file-upload": "^12.2.13",
+    "angular-animate": "1.6.3",
+    "moment": "*",
+    "angular-cache": "*",
+    "angular-resource": "*",
+    "angular-ui-ace": "bower",
+    "angular-timeago": "^0.4.4",
+    "angular-dragdrop": "^1.0.13"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "angular": "1.6.3"
+  }
+}

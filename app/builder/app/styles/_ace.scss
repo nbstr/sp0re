@@ -1,0 +1,139 @@
+.ace_editor {
+    min-height: 200px;
+}
+
+// never show tooltips, we don't have room for this on an extension.. overflow is always hidden and it looks pretty ugly
+.ace_tooltip,
+.ace_doc-tooltip {
+    display: none;
+}
+
+//  █████╗  ██████╗███████╗      ██╗███╗   ██╗██╗  ██╗
+// ██╔══██╗██╔════╝██╔════╝      ██║████╗  ██║██║ ██╔╝
+// ███████║██║     █████╗        ██║██╔██╗ ██║█████╔╝ 
+// ██╔══██║██║     ██╔══╝        ██║██║╚██╗██║██╔═██╗ 
+// ██║  ██║╚██████╗███████╗      ██║██║ ╚████║██║  ██╗
+// ╚═╝  ╚═╝ ╚═════╝╚══════╝      ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+.ace-inklabs {
+    //colors
+    $color_gray_nurse_approx: #e8e8e8;
+    $color_mine_shaft_approx: #333;
+    $black: #000000;
+    $color_sail_approx: #b5d5ff;
+    $color_sprout_approx: rgb(198, 219, 174);
+    $color_silver_approx: #bfbfbf;
+    $black_7_1: rgba(0, 0, 0, 0.04);
+    $color_red_violet_approx: #F0797B;
+    $color_spectra_approx: #275a5e;
+    $color_dark_blue_approx: #3a00dc;
+    $color_vista_blue_approx: #F0797B;
+    $color_froly_approx: #F0797B;
+    $color_crimson_approx: #20BFD0;
+    $color_picton_blue_approx: #5bb0f4;
+    //urls
+    $url_0: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==);
+    
+    background-color: white;
+    color: $black;
+    .ace_gutter {
+        background: $color_gray_nurse_approx;
+        color: $color_mine_shaft_approx;
+    }
+    .ace_print-margin {
+    	display: none;
+        width: 1px;
+        background: $color_gray_nurse_approx;
+    }
+    .ace_cursor {
+        color: $black;
+    }
+    .ace_marker-layer {
+        .ace_selection {
+            background: $color_sail_approx;
+        }
+        .ace_step {
+            background: $color_sprout_approx;
+        }
+        .ace_bracket {
+            margin: -1px 0 0 -1px;
+            border: 1px solid $color_silver_approx;
+        }
+        .ace_active-line {
+            background: $black_7_1;
+        }
+        .ace_selected-word {
+            border: 1px solid $color_sail_approx;
+        }
+    }
+    .ace_gutter-active-line {
+        background-color: $black_7_1;
+    }
+    .ace_constant {
+        &.ace_language {
+            color: $color_red_violet_approx;
+        }
+        &.ace_character {
+            color: $color_spectra_approx;
+        }
+        &.ace_other {
+            color: $color_spectra_approx;
+        }
+        &.ace_numeric {
+            color: $color_dark_blue_approx;
+        }
+    }
+    .ace_keyword {
+        color: $color_red_violet_approx;
+    }
+    .ace_meta {
+        color: $color_red_violet_approx;
+    }
+    .ace_invisible {
+        color: $color_silver_approx;
+    }
+    .ace_entity {
+        &.ace_other.ace_attribute-name {
+            color: $color_vista_blue_approx;
+        }
+        &.ace_name.ace_tag {
+            color: $color_froly_approx;
+        }
+    }
+    .ace_support {
+        &.ace_constant {
+            color: $color_vista_blue_approx;
+        }
+        &.ace_function {
+            color: $color_vista_blue_approx;
+        }
+        &.ace_class {
+            color: $color_froly_approx;
+        }
+        &.ace_type {
+            color: $color_froly_approx;
+        }
+    }
+    .ace_fold {
+        background-color: $color_red_violet_approx;
+        border-color: $black;
+    }
+    .ace_storage {
+        color: $color_red_violet_approx;
+    }
+    .ace_string {
+        color: $color_crimson_approx;
+    }
+    .ace_comment {
+        color: $color_picton_blue_approx;
+    }
+    .ace_indent-guide {
+        background: $url_0 right repeat-y;
+    }
+    &.ace_multiselect .ace_selection.ace_start {
+        //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+        box-shadow: 0 0 3px 0 white;
+    }
+    .ace_variable.ace_language {
+        color: $color_red_violet_approx;
+    }
+}

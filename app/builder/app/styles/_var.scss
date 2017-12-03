@@ -1,0 +1,192 @@
+//----------
+// General variable
+//----------
+$font: 'PT Mono',
+'Proxima Nova',
+'Roboto',
+"Helvetica",
+sans-serif;
+$appId: "oljapmkoghjdmahglcpflcgcejpdecap";
+$baseUrl: "../assets/";
+// $baseUrl: "chrome-extension://" + $appId + "/xt_content/assets/";
+
+/*
+//Helvetica font
+$font:'Helvetica Neue Ltd Std Medium';
+$font_thin:'Helvetica Neue Ltd Std Thin';
+$font_light:'Helvetica Neue Ltd Std Light';
+$font_cn:'Helvetica Neue Ltd Std Medium Condensed';
+$font_bold:'Helvetica Neue Ltd Std Bold';
+$font_bold_cn:'Helvetica Neue Ltd Std Bold Condensed';
+$font_roman:'Helvetica Neue Ltd Std Roman';
+$font_ultra_light:'Helvetica Neue Ltd Std Ultra Light';
+*/
+
+$transition_time:300ms;
+// $transition_time:.44s;
+$default_anim:ease; //cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$main_width:100%;
+$max_width:500px;
+
+$a_root:"../assets/";
+$side_menu_width:65%;
+$loading_time:1s;
+$apply_resize: true;
+$resize_s: 0.85;
+
+// BREAKPOINTS
+$breakpoint_phone:480px;
+$breakpoint_tablet:600px;
+$breakpoint_medium:800px;
+$breakpoint_big:1000px;
+$breakpoint_desktop:1280px;
+$breakpoint_xt:$max_width;
+
+// Round a number to specified digits.
+//
+// @param  {Number} $number A number to round
+// @param  {Number} [$digits:0] Digits to output
+// @param  {String} [$mode:round] (round|ceil|floor) How to round a number
+// @return {Number} A rounded number
+// @example
+//     decimal-round(0.333)    => 0
+//     decimal-round(0.333, 1) => 0.3
+//     decimal-round(0.333, 2) => 0.33
+//     decimal-round(0.666)    => 1
+//     decimal-round(0.666, 1) => 0.7
+//     decimal-round(0.666, 2) => 0.67
+//
+@function decimal-round ($number, $digits: 0, $mode: round) {
+    $n: 1; // $number must be a number
+    @if type-of($number) !=number {
+        @warn '#{ $number } is not a number.';
+        @return $number;
+    } // $digits must be a unitless number
+    @if type-of($digits) !=number {
+        @warn '#{ $digits } is not a number.';
+        @return $number;
+    }
+    @else if not unitless($digits) {
+        @warn '#{ $digits } has a unit.';
+        @return $number;
+    }
+    @for $i from 1 through $digits {
+        $n: $n * 10;
+    }
+    @if $mode==round {
+        @return round($number * $n) / $n;
+    }
+    @else if $mode==ceil {
+        @return ceil($number * $n) / $n;
+    }
+    @else if $mode==floor {
+        @return floor($number * $n) / $n;
+    }
+    @else {
+        @warn '#{ $mode } is undefined keyword.';
+        @return $number;
+    }
+}
+
+@function dp($var_value, $ratio: $resize_s) {
+    @if $apply_resize==true {
+        @return decimal-round($var_value * $ratio, 1);
+    }
+    @else {
+        @return $var_value;
+    }
+}
+
+//font-sizes
+$font_xs:dp(12px);
+$font_s:dp(14px);
+$font_sm:dp(18px);
+$font_m:dp(20px);
+$font_l:dp(24px);
+$font_xl:dp(32px);
+$font_xxl:dp(42px);
+//custom ui
+$header_footer_shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px 0px;
+$border-button-width:4px;
+$border-radius:5px;
+$selected-width:6px;
+$menu-height:50px;
+$header_height: dp(48px);
+// colors
+$very-light-dark:#777;
+$light-dark:#555;
+$dark:RGB(51, 51, 51);
+$grey:RGB(242, 242, 242);
+$selected:#999;
+$very-light-blue:RGB(123, 144, 157);
+$light-blue:RGB(85, 119, 175);
+$blue:RGB(45, 87, 157);
+$red:RGB(255, 0, 0);
+// ink
+$ink_app_color: #65A4AD;
+$ink_app_grey: #B3C3C8;
+$ink_app_grey_darker: #828F93;
+$ink_app_grey_txt: #555459;
+$ink_dark_sky: #5D75AF;
+$ink_light_sky: #65A4AD;
+$ink_grey_blue: #656C7A;
+$ink_grey_bg: #F9F9F9;
+$ink_grey_text: #9B9B9B;
+$ink_grey_border: #E8E8E8;
+$ink_font_dark: #505050;
+$ink_light_grey: #FAFAFA;
+$ink_very_light_grey: #EEE;
+$ink_almost_white: #FEFFFF;
+$ink_almost_black: #555459;
+$ink_comment_blue: #39ADD1;
+// $ink_comment_blue: #5BB0F4;
+// $ink_question_green: #1AD164;
+$ink_question_green_resolved: #1AD164;
+$ink_question_green: #F37A7A;
+$ink_warning_red: #F37A7A;
+// background: linear-gradient(to top, $ink_light_sky , $ink_dark_sky);
+$ink_green: #1AD164;
+$ink_red: #EB234F;
+$ink_grey_background: #F5F5F5;
+$ink_black: rgb(61, 61, 61);
+$ink_redpink: rgb(241, 52, 85);
+$ink_coral: rgb(246, 106, 74);
+$ink_coral2: rgb(246, 83, 74);
+$ink_coral_light: rgba(241, 52, 85, 0.62);
+$ink_grey: rgb(237, 234, 234);
+$ink_greyish: rgb(168, 168, 168);
+$ink_greyish2: rgb(182, 182, 182);
+$ink_warm_grey: rgb(123, 123, 123);
+$ink_warm_grey2: rgb(124, 124, 124);
+$ink_warm_grey3: rgb(113, 113, 113);
+$ink_yellow:#EFC400;
+$ink_white2: rgb(245, 245, 245);
+$ink_white3: rgb(237, 237, 237);
+$ink_pale_yellow: #FFFBE6;
+$ink_pale_green: #F0FBF3;
+$ink_pale_green_border: #C1ECCE;
+$ink_schauss: #FF91AF;
+$ink_google: #FF5E57;
+$ink_google_dark: #FF3D35;
+$ink_facebook: #507CC0;
+$ink_facebook_dark: #528BE2;
+$ink_form_default: #5BB0F4;
+$ink_form_default_dark: #4E98D4;
+
+$ink_hover_blue: #EDF7FD;
+
+$ink_gradient_blue: linear-gradient(to top, #5BB2E7, #51DDE3);
+
+// ADMIN
+$ink_terminal: RGBA(191, 207, 210, 1.00);
+$ink_terminal_blue: RGBA(77, 100, 122, 1.00);
+$ink_terminal_green: #60E69C;
+$ink_terminal_dark_blue: RGBA(27, 28, 33, 1.00);
+$ink_terminal_active_window: $ink_terminal_blue;
+$ink_terminal_inactive_window: RGBA(62, 76, 95, 1.00);
+$ink_terminal_border: RGBA(109, 118, 121, 1.00);
+$ink_terminal_danger: RGBA(210, 79, 79, 1.00);
+$terminal_w: 460px;
+$font_terminal: "PT Mono";
+$font_sz_s_terminal: 12px;
+$font_sz_terminal: 14px;

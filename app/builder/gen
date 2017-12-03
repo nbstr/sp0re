@@ -1,0 +1,456 @@
+#!/bin/bash
+
+# style
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput setaf 0`
+normal=`tput sgr0`
+bold=`tput bold`
+
+# path
+app="app"
+states="${app}/states"
+components="${app}/components"
+widgets="${app}/widgets"
+
+############################################################################
+#                                                                          #
+# Main                                                                     #
+# generate first level of ui-view nesting                                  #
+# example : app/states/root                                                #
+#                                                                          #
+############################################################################
+if [ "$1" == "main" ] ; then
+
+	# no main state parameter sent
+	if [ "$#" != 2 ] ; then
+		echo "${bold}A main state name should be provided as a second parameter${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating main state.."
+
+	#1. generate folder
+	new_state="${states}/$2"
+	mkdir -p "$new_state"
+	rm -f "${new_state}/_$2.scss"
+	rm -f "${new_state}/$2.pug"
+
+	#2. generate files (pug and scss)
+	# pug
+	echo -e ".$2-wrapper\n\theader.$2\n\t\t| $2 Header\n\t.nb-animation-wrapper\n\t\t.content-wrapper(ui-view=\"$2\")\n\tfooter.$2" >> "${new_state}/$2.pug"
+	# scss
+	echo -e "header.$2{\n\t//Header style\n}\n.$2-wrapper{\n\t//Other style\n}" >> "${new_state}/_$2.scss"
+	# add to states.js
+	echo -e "config.app.states.push({\n\tid:'$2',\n\tno_controller:true,\n\turl:'/$2',\n\tprivate:true\n});" >> "app/config/states.js"
+	# add to index.scss
+	echo -e "@import \"states/$2/$2\";" >> "app/index.scss"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Secondary                                                                #
+# generate second level of ui-view nesting                                 #
+# example : app/states/root/secondary                                      #
+#                                                                          #
+############################################################################
+elif [ "$1" == "secondary" ] ; then
+	if [ "$#" -lt 3 ]
+	then
+		echo "${bold}A main state name should be provided as a second parameter${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating secondary state in main state.."
+
+	main="$3"
+	name="$2"
+
+	#1. generate folder
+	new_state="${states}/${main}/${name}"
+	mkdir -p "$new_state"
+	rm -f "${new_state}/$2.js"
+	rm -f "${new_state}/_$2.scss"
+	rm -f "${new_state}/$2.pug"
+
+	#2. generate files (pug and scss)
+	# pug
+	echo -e ".$2-wrapper\n\theader.$2\n\t\t| $2 Header\n\tnb-animation-wrapper\n\t\t.content-wrapper(ui-view=\"$2\")\n\tfooter.$2" >> "${new_state}/$2.pug"
+	# scss
+	echo -e "header.$2{\n\t//Header style\n}\n.$2-wrapper{\n\t//Other style\n}" >> "${new_state}/_$2.scss"
+	# add to states.js
+	echo -e "config.app.states.push({\n\tid:'$3.$2',\n\tno_controller:true,\n\turl:'/$2',\n\tprivate:true\n});" >> "app/config/states.js"
+	# add to index.scss
+	echo -e "@import \"states/$3/$2/$2\";" >> "app/index.scss"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Tertiary                                                                 #
+# generate third level of ui-view nesting                                  #
+# example : app/states/root/navigation/tabs                                #
+#                                                                          #
+############################################################################
+elif [ "$1" == "tertiary" ] ; then
+	if [ "$#" -lt 4 ]
+	then
+		echo "${bold}A main state name should be provided as a second parameter${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating tertiary state in secondary state.."
+
+	main="$4"
+	second="$3"
+	name="$2"
+	CapitalName="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
+
+	#1. generate folder
+	new_state="${states}/${main}/${second}/${name}"
+	mkdir -p "$new_state"
+	rm -f "${new_state}/$2.js"
+	rm -f "${new_state}/_$2.scss"
+	rm -f "${new_state}/$2.pug"
+
+	#2. generate files (pug and scss)
+	# pug
+	echo -e ".$2.wrapper\n\t| $2" >> "${new_state}/$2.pug"
+	# scss
+	echo -e ".$2{\n}" >> "${new_state}/_$2.scss"
+	# ctrl
+	echo -e "var app = angular.module(config.app.name);\n\napp.controller(\"${CapitalName}Controller\",['\$scope','\$rootScope','\$timeout','\$state','\$stateParams','\$http','sharedData',function(\$scope,\$rootScope,\$timeout,\$state,\$stateParams,\$http,sharedData){\n\n\t// CONSTRUCTOR\n\t!(\$scope.init=function(){\n\n\t})();\n\n}]);" >> "${new_state}/$2.js"
+	# add to states.js
+	echo -e "config.app.states.push({\n\tid:'$4.$3.$2',\n\turl:'/$2'\n});" >> "app/config/states.js"
+	# add to index.scss
+	echo -e "@import \"states/$4/$3/$2/$2\";" >> "app/index.scss"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Page                                                                     #
+# generate last level of ui-view nesting : a page                          #
+# example : app/states/root/profile or app/states/root/secondary/profile   #
+#           this folder contains .pug .js and .scss files                 #
+#                                                                          #
+############################################################################
+elif [ "$1" == "page" ] ; then
+	if [ "$#" -lt 3 ]
+	then
+		echo "${bold}A main state name should be provided as a second parameter${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating page in state.."
+
+	main="$3"
+	name="$2"
+	CapitalName="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
+
+	#1. generate folder
+	new_state="${states}/${main}/${name}"
+	mkdir -p "$new_state"
+	rm -f "${new_state}/$2.js"
+	rm -f "${new_state}/_$2.scss"
+	rm -f "${new_state}/$2.pug"
+
+	#2. generate files (pug and scss)
+	# pug
+	echo -e ".$2-wrapper.page-wrapper\n\t.$2\n\t\t| $2" >> "${new_state}/$2.pug"
+	# scss
+	echo -e ".$2-wrapper{\n\t.$2{\n\t\tmin-height:400px;\n\t}\n}" >> "${new_state}/_$2.scss"
+	# ctrl
+	echo -e "var app = angular.module(config.app.name);\n\napp.controller(\"${CapitalName}Controller\",['\$scope','\$rootScope','\$timeout','\$state','\$stateParams','\$http','sharedData',function(\$scope,\$rootScope,\$timeout,\$state,\$stateParams,\$http,sharedData){\n\n\t// CONSTRUCTOR\n\t!(\$scope.init=function(){\n\n\t})();\n\n}]);" >> "${new_state}/$2.js"
+	# add to states.js
+	echo -e "config.app.states.push({\n\tid:'$3.$2',\n\turl:'/$2'\n});" >> "app/config/states.js"
+	# add to index.scss
+	echo -e "@import \"states/$3/$2/$2\";" >> "app/index.scss"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Service                                                                  #
+# generate angular service module                                          #
+#                                                                          #
+############################################################################
+elif [ "$1" == "service" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A service name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating service.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/services/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file (js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.service(\"${name}\",['\$resource','\$http', '\$q','\$timeout',function(\$resource,\$http,\$q,\$timeout){\n\t//$name Service\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Animation                                                                #
+# generate angular animation module                                        #
+#                                                                          #
+############################################################################
+elif [ "$1" == "animation" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}An animation name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating animation.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/animations/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file (js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.animation(\".${name}\",[function(){\n\treturn {\n\t\tenter : function(element, done) {\n\t\t\t//behavior\n\t\t},\n\t\tleave : function(element, done) {\n\t\t\t//behavior\n\t\t},\n\t\tmove : function(element, done) {\n\t\t\t//behavior\n\t\t},\n\t\t// you can also capture these animation events\n\t\taddClass : function(element, className, done) {\n\t\t\t//behavior\n\t\t},\n\t\tremoveClass : function(element, className, done) {\n\t\t\t//behavior\n\t\t}\n\t}\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Directive                                                                #
+# generate angular directive module                                        #
+#                                                                          #
+############################################################################
+elif [ "$1" == "directive" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A directive name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating directive.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/directives/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file(js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.directive(\"${name}\",['\$rootScope','\$timeout',function(\$rootScope,\$timeout){\n\treturn {\n\t\trestrict: 'A',\n\t\tlink: function(scope,element,attrs) {\n\t\t\tconsole.log(element);\n\t\t\tconsole.log(attrs);\n\t\t}\n\t};\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Factory                                                                  #
+# generate angular factory module                                          #
+#                                                                          #
+############################################################################
+elif [ "$1" == "factory" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A factory name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating factory.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/factories/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file (js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.factory(\"${name}\",['\$http', '\$q','\$timeout','\$resource',function(\$http,\$q,\$timeout,\$resource){\n\tvar $name={\n\t\t// Factory $name\n\t};\n\treturn $name;\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Provider                                                                 #
+# generate angular provider module                                         #
+#                                                                          #
+############################################################################
+elif [ "$1" == "provider" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A provider name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating factory.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/providers/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file (js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.provider(\"${name}\", ['\$http', '\$q', function(\$http, \$q){\n\tvar self=this;\n\n\tself.booleanValue=false;\n\n\tself.setBooleanValue=function(value){\n\t\tself.booleanValue=value;\n\t}\n\n\tthis.\$get = ['', function() {\n\t\t//...\n\t}];\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Resource                                                                 #
+# generate angular provider resource                                       #
+#                                                                          #
+############################################################################
+elif [ "$1" == "resource" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A resource name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating resource.."
+
+	name="$2"
+	CapitalName="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
+
+	#1. generate folder
+	new_component="${components}/resources/${CapitalName}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/${CapitalName}.js"
+
+	#2. generate file (js)
+	echo -e "//Resource ${CapitalName}\nvar ${CapitalName} = angular.module(\"${CapitalName}Module\", []);\n\n${CapitalName}.factory(\"${CapitalName}\", ['\$rootScope', '\$http', '\$q', function(\$rootScope, \$http, \$q) {\n\n\tvar ${CapitalName}Resource = {};\n\n\t/****************************************************************************\n\t *                                                                          *\n\t * Resource ${CapitalName}                                                           *\n\t * Explain what the method of the resource does here                        *\n\t *                                                                          *\n\t ***************************************************************************/\n\n\t${CapitalName}Resource.resourceMethod = function() {\n\n\t\tvar q = \$q.defer();\n\n\t\tvar options = \$rootScope.\$http_options('resource_route');\n\n\t\t\$rootScope.\$http_helper(options).then(q.resolve);\n\n\t\treturn q.promise;\n\n\t};\n\n\treturn ${CapitalName}Resource;\n\n}]);" >> "${new_component}/${CapitalName}.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Filter                                                                   #
+# generate angular filter resource                                         #
+#                                                                          #
+############################################################################
+elif [ "$1" == "filter" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A filter name should be provided in camelCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating filter.."
+
+	name="$2"
+
+	#1. generate folder
+	new_component="${components}/filters/${name}"
+	mkdir -p "$new_component"
+	rm -f "${new_component}/$2.js"
+
+	#2. generate file (js)
+	echo -e "var $name = angular.module(\"${name}Module\",[]);\n\n$name.filter(\"${name}\",[function(){\n\treturn function(input){\n\t\tconsole.log(input);\n\t\t// Filter $name\n\t};\n}]);" >> "${new_component}/$2.js"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Widget                                                                   #
+# generate angular widget resource                                         #
+#                                                                          #
+############################################################################
+elif [ "$1" == "widget" ] ; then
+	if [ "$#" != 2 ]
+	then
+		echo "${bold}A widget name should be provided in cameCase${normal}"
+		echo "type help for the list of available commands"
+		exit
+	fi
+
+	echo "generating widget.."
+
+	name="$2"
+	CapitalName="$(tr '[:lower:]' '[:upper:]' <<< ${name:0:1})${name:1}"
+
+	#1. generate folder
+	new_widget="${widgets}/${name}"
+	mkdir -p "$new_widget"
+	rm -f "${new_widget}/$2.js"
+	rm -f "${new_widget}/_$2.scss"
+	rm -f "${new_widget}/$2.pug"
+
+	#2. generate file (js)
+	# js
+	echo -e "//Widget $name\nvar $name = angular.module(\"${name}Widget\",[]);\n\n//constant\n$name.constant(\"${name}Local\",{\n\t\"template\":\"html/${name}.html\"\n});\n//preload template once for all\n$name.run(['\$rootScope','\$http','\$timeout','\$templateCache','${name}Local',function(\$rootScope,\$timeout,\$http,\$templateCache,local) {\n\t\$http.get(local.template, { cache: \$templateCache });\n}]);\n\n//controller\n$name.controller(\"${CapitalName}Controller\",['\$scope','\$rootScope','\$http','\$timeout',function(\$scope,\$rootScope,\$http,\$timeout){\n\n\t// CONSTRUCTOR\n\t!(\$scope.init = function(){\n\t})();\n}]);\n\n//directive\n$name.directive(\"${name}\",['\$rootScope','${name}Local',function(\$rootScope,local){\n\treturn {\n\t\trestrict: 'A',\n\t\tcontroller: '${CapitalName}Controller',\n\t\ttemplateUrl: local.template\n\t};\n}]); " >> "${new_widget}/$2.js"
+	# pug
+	echo -e ".$2" >> "${new_widget}/$2.pug"
+	# scss
+	echo -e ".$2{\n\t// scss\n}" >> "${new_widget}/_$2.scss"
+	# add to index.scss
+	echo -e "@import \"widgets/$2/$2\";" >> "app/index.scss"
+
+	# success
+	echo "${bold}${green}success.${reset}${normal}"
+
+############################################################################
+#                                                                          #
+# Help                                                                     #
+#                                                                          #
+############################################################################
+elif [ "$1" == "help" ] ; then
+	echo "=================="
+	echo "${bold}the following commands are availabe:${normal}"
+	
+	echo "====== page ======"
+	echo "${green}main <name>${reset} - generate a main state named <name> (ex: root,...)"
+	echo "${green}page <name> <main> ${reset} - generate a new state and controller in a group <main>"
+	echo "${green}secondary <secondary> <main>${reset} - generate a new secondary group named <secondary>"
+	echo "${green}tertiary <tertiary> <secondary> <main>${reset} - generate a new state and controller in a group <secondary> that is in <main>"
+	
+	echo "=== components ==="
+	echo "${green}service <name>${reset} - generate a new service named <name>"
+	echo "${green}animation <name>${reset} - generate a new animation named <name>"
+	echo "${green}directive <name>${reset} - generate a new directive named <name>"
+	echo "${green}factory <name>${reset} - generate a new factory named <name>"
+	echo "${green}provider <name>${reset} - generate a new provider named <name>"
+	echo "${green}filter <name>${reset} - generate a new filter named <name>"
+	echo "${green}resource <name>${reset} - generate a new resource named <name>"
+	
+	echo "===== widget ====="
+	echo "${green}generate:widget <name>${reset} - generate a new widget named <name>"
+	echo "==================${reset}${normal}"
+else
+	echo "=================="
+	echo "${bold}invalid command${normal}"
+	echo "type help to have a list of the availabe command"
+	echo "=================="
+fi

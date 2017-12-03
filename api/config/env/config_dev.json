@@ -1,0 +1,9 @@
+{
+    "send_confirmation_mail": true,
+    "support_email": "",
+    "bug_report_email": "info@inklabs.be",
+    "upload_on_aws": false,
+    "facebook": {
+        "permissions": ["id", "email", "first_name", "last_name"]
+    }
+}

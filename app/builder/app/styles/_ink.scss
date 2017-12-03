@@ -1,0 +1,112 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.app-wrapper,
+.nb-animation-wrapper,
+.main-wrapper,
+.root-wrapper,
+.wrapper,
+.nb-resp-wrapper {
+    height: 100%;
+}
+
+.switch {
+    background: $ink_grey;
+    &.checked {
+        background-color: #5BB0F4;
+        border-color: #5BB0F4;
+        background: linear-gradient(to right, #75BDF6, #5BB0F4);
+    }
+}
+
+.ink-highlight {
+    background-color: $ink_schauss;
+}
+
+textarea {
+    resize: none;
+}
+
+*,
+*:after,
+*:before {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.clear {
+    clear: both;
+}
+
+//----------
+// UI scss
+//----------
+input,
+textarea,
+button,
+select {
+    border-radius: 0px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    width: 100%;
+    padding: 10px 15px;
+    display: block;
+    box-shadow: none !important;
+}
+
+:-webkit-autofill {
+    color: #fff !important;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+input,
+button,
+textarea,
+select,
+.custom-select {
+    border: 1px solid $ink_grey_border;
+    color: $dark;
+    background-color: white;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+[background],
+[data-background] {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    &.cover {
+        background-size: cover;
+    }
+}

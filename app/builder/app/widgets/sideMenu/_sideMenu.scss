@@ -1,0 +1,58 @@
+//SideMenu widget Style
+.side-menu{
+	overflow:hidden;
+	width:100%;
+	.background{
+		@include fixed-fill;
+        overflow: hidden;
+        z-index:20;
+        opacity: 0;
+        visibility: hidden;
+        background-color:black;
+	}
+	.side-menu-wrap{
+		background:white;
+		//box-shadow:0px 0px 5px 0px rgba(0,0,0,0.7);
+		@include fixed-fill;
+        right:auto;
+        z-index: 21;
+        font-weight: 300;
+
+        width:80%;
+        transform: translateX(-100%);
+        &:before{
+        	content:"";
+        	height: 100%;
+        	width:100%;
+        	position: absolute;
+        	top:0;left:0;
+        	box-shadow:0px 0px 5px 0px rgba(0,0,0,0.7);
+        }
+	}
+	.side-menu-opener{
+    	z-index: 200;
+		position: fixed;
+		top:0;
+		bottom:0;
+		width:10px;
+		left:0;
+		right:auto;
+    }
+	&.right-menu{
+		.side-menu-wrap{
+			transform: translateX(100%);
+			left:auto;
+			right:0;
+		}
+		.side-menu-opener{
+			right:0;
+			left:auto;
+		}
+	}
+	&.animated {
+        .background,.side-menu-wrap {
+            @include transition(all);
+        } 
+    }
+}
+

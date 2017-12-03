@@ -1,0 +1,24 @@
+//------------//
+// Global CSS //
+//------------//
+@import "styles/var";
+@import "styles/reset";
+@import "styles/mixins";
+@import "styles/ace";
+@import "styles/ink";
+@import "styles/ink_window";
+@import "styles/flags";
+@import "styles/fonts";
+//--------//
+// States //
+//--------//
+//Main state root
+@import "states/root/root";
+@import "states/root/home/home";
+@import "states/root/auth/auth";
+//---------//
+// Widgets //
+//---------//
+@import "widgets/footer/footer";
+@import "widgets/header/header";
+@import "widgets/nbSwitch/nbSwitch";

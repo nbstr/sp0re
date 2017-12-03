@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="mn" id="Project_23adda9b" html="y" template="Default" database="MongoDb" >
+	<schema name="mn" schemaname="mn" >
+		<table name="domain" >
+			<column name="name" type="string" jt="12" >
+				<comment><![CDATA[domain full path : com.google.www]]></comment>
+			</column>
+			<column name="tld" type="string" jt="12" >
+				<comment><![CDATA[top level domain : com, net, ...]]></comment>
+			</column>
+			<column name="d" type="string" jt="12" >
+				<comment><![CDATA[domain : google]]></comment>
+			</column>
+			<column name="sd" type="string" jt="12" >
+				<comment><![CDATA[sub level domain : www, —, maps]]></comment>
+			</column>
+			<column name="ip" type="string" jt="12" >
+				<comment><![CDATA[adresse ip]]></comment>
+			</column>
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="c" type="date" jt="91" />
+			<column name="u" type="date" jt="91" />
+			<column name="del" type="date" jt="91" />
+			<index name="Pk_domain" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="page" >
+			<comment><![CDATA[structure de base de chaque page qui va accueillir un espace d'échange]]></comment>
+			<column name="url" type="string" jt="12" />
+			<column name="wurl" type="string" jt="12" />
+			<column name="id" type="integer" jt="4" mandatory="y" />
+			<column name="domain_id" type="integer" jt="4" />
+			<index name="Pk_page" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="domain_id" virtual="y" to_schema="mn" to_table="domain" >
+				<fk_column name="domain_id" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<layout id="Layout_15cb417c" name="mn" show_relation_columns="y" >
+		<entity schema="mn" name="domain" color="b7c8e3" x="45" y="45" />
+		<entity schema="mn" name="page" color="b7c8e3" x="210" y="45" />
+	</layout>
+</project>

@@ -1,0 +1,310 @@
+//----------
+// All the mixins
+//----------
+@mixin line-clamp($line,$line-height:16px){
+    overflow:hidden;
+    
+    display: -webkit-box;
+    
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    
+    line-height: $line-height;
+    max-height: $line * $line-height;
+}
+@mixin inline{
+    display: inline-block;
+    vertical-align: top;
+}
+@mixin middle{
+    display: inline-block;
+    vertical-align: middle;
+}
+@mixin inline-bottom{
+    display: inline-block;
+    vertical-align: bottom;
+}
+@mixin fixed-fill{
+    position:fixed;top:0px;left:0px;bottom:0px;right:0px;width:100%;height:100%;
+}
+@mixin absolute-fill{
+    position:absolute;left:0px;right:0px;top:0px;bottom:0px;
+    width:100%;height:100%;
+    /* edit: added z-index */
+    z-index: 1;
+}
+/*
+Black box shadow
+*/
+@mixin box-shadow($left:0px,$bottom:0px,$spread:1px,$thickness:0px,$opacity:0.5){
+    box-shadow:$left $bottom $spread $thickness rgba(0,0,0,$opacity);
+}
+/*
+Other color box shadow
+*/
+@mixin box-shadow-color($left:0px,$bottom:0px,$spread:1px,$thickness:0px,$color:rgba(0,0,0,0.3)){
+    box-shadow:$left $bottom $spread $thickness $color;
+}
+/*
+Responsive line height
+*/
+@mixin line-height($size,$rapp:1){
+    line-height:$size;
+    @include tablet{
+        line-height:($size - (2 * $rapp));
+    }
+    @include phone{
+        line-height:($size - (4 * $rapp));
+    }
+}
+/*
+Responsive font size
+*/
+@mixin font-size($size,$rapp:1){
+    font-size:$size;
+    @include tablet {
+        font-size:($size - (2 * $rapp));
+    }
+    @include phone{
+        font-size:($size - (4 * $rapp));
+    }
+    
+}
+/*
+Responsive height (often linked to line-height)
+*/
+@mixin height($size,$rapp:1){
+    height:$size;
+    @include tablet {
+        height:($size - (2 * $rapp));
+    }
+    @include phone {
+        height:($size - (4 * $rapp));
+    }
+}
+/*
+Transform mixin
+*/
+@mixin transform($property){
+    transform: $property;
+}
+/*
+Transition mixin
+default: opacity .7s
+*/
+@mixin transition($property:opacity,$duration:$transition_time,$function:"",$delay:""){
+    //increase performance
+    //backface-visibility: hidden;
+    //transform: translateZ(0);
+    transition: $property $duration unquote($function) unquote($delay);
+}
+/*
+Arrow mixin
+*/
+@mixin arrow($direction, $color, $size){
+    display: block;
+    height: 0;
+    width: 0;
+    
+    @if $direction == 'top' {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+    } @else if $direction == 'right' {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+    } @else if $direction == 'bottom' {
+        border-top: $size solid $color;
+        border-right: $size solid transparent;
+        border-left: $size solid transparent;
+    } @else if $direction == 'left' {
+        border-top: $size solid transparent;
+        border-right: $size solid $color;
+        border-bottom: $size solid transparent;
+    } @else if $direction == 'top-left' {
+        border-top: $size solid $color; 
+        border-right: $size solid transparent;  
+    } @else if $direction == 'top-right' {
+        border-top: $size solid $color; 
+        border-left: $size solid transparent;
+    } @else if $direction == 'bottom-left' {
+        border-bottom: $size solid $color; 
+        border-right: $size solid transparent;  
+    } @else if $direction == 'bottom-right' {
+        border-bottom: $size solid $color; 
+        border-left: $size solid transparent;
+    }
+}
+/*
+Border-radius mixin
+*/
+@mixin border-radius($radius:100%){
+    border-radius: $radius;
+}
+/*
+Color placeholder mixin
+*/
+@mixin color-placeholder($color:#000){
+    input,textarea {
+        &::-webkit-input-placeholder{color:$color;}
+        &:-moz-placeholder{color:$color;}
+        &::-moz-placeholder{color:$color;}
+        &:-ms-input-placeholder{color:$color;}
+    }
+}
+/*
+Blur mixin
+*/
+@mixin blur($radius:5px){
+    filter: blur($radius);
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/*
+Icon/asset mixin
+*/
+@mixin background-icon($url,$width,$height,$rapp:1){
+    background-image: url($url);
+    background-repeat: no-repeat;
+    background-size:ceil($width * $rapp) ceil($height * $rapp);
+    height: ceil($height * $rapp);
+    width: ceil($width * $rapp);
+}
+/*
+Mixin for fixed icons
+*/
+@mixin fixed-icon($height,$width,$url:""){
+    @include background-icon($url,$width,$height);
+    margin-top: - $height / 2;
+    position:absolute;
+    top: 50%;
+}
+@mixin fixed-top($height:16px,$font:true){
+    @if $font==true {
+        font-size: $height;
+    }
+    @else {
+        height: $height;
+    }
+    margin-top: - $height / 2;
+    position:absolute;
+    top: 50%;
+}
+@mixin sep($space:25px,$color:white){
+    border-bottom: 1px solid $color;
+    border-top:1px solid transparent;
+    border-left:1px solid transparent;
+    border-right:1px solid transparent;
+    margin:$space 0px;
+}
+@mixin user-select($select:none){
+  -webkit-user-select: $select;  /* Chrome all / Safari all */
+  -moz-user-select: $select;     /* Firefox all */
+  -ms-user-select: $select;      /* IE 10+ */
+
+  /* No support for these yet, use at own risk */
+  -o-user-select: $select;
+  user-select: $select;
+}
+@mixin underline($type:1,$color:black){
+    @if $type==2{
+        padding-bottom: 2px;
+    }
+    &:hover{
+        cursor: pointer;
+        @if $type==1{
+            text-decoration: underline;
+        }
+        @else if $type==2{
+            padding-bottom: 1px;
+            border-bottom:1px solid $color;
+
+        }
+    }
+}
+@mixin forced-underline($color){
+    padding-bottom: 1px;
+    border-bottom:1px solid $color;
+}
+@mixin vm($font-size:$font_s,$rapp-font:0){
+    font-size: 0;
+    letter-spacing: 0;
+    &:before{
+        content:"";
+        height: 100%;
+        @include middle;
+    }
+    > *{
+        @include middle;
+        @include font-size($font-size,$rapp-font);
+        letter-spacing: initial;
+    }
+};
+
+@mixin vertical-abs-align($percentage:25%){
+    height: 100% - 2 * $percentage;
+    top:$percentage;
+};
+@mixin abs-icon($img-size,$rapp:0.7){
+    padding-left:$img-size+10px;
+    .img{
+        @include transition(transform);
+        &:hover{
+            transform: scale(1.1);
+        }
+        position: absolute;
+        top:0px;
+        left:0px;
+        width: $img-size;
+        height: $img-size * $rapp;
+    }
+    @include phone{
+        padding-left:0px;
+        text-align: center;
+        .img{
+            position: relative;
+            margin:10px auto;
+            margin-top:0px;
+        }
+    }
+};
+@mixin ball($dim){
+    width:$dim;
+    height: $dim;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius:100%;
+}; 
+@mixin active-hover($breakpoint:$breakpoint_tablet){
+    &:hover{
+        @include min-breakpoint($breakpoint_tablet){
+            @content;
+        }
+    }
+    &:active{
+        @content;
+    }
+}
+@mixin word-wrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  // -ms-hyphens: auto;
+  // -moz-hyphens: auto;
+  // -webkit-hyphens: auto;
+  // hyphens: auto;
+}
+@mixin __font($color: #FFF, $size: 17px, $weight: 600, $height: 27px, $lsp: 0.5px) {
+    color: $color;
+    font-size: $size;
+    line-height: $height;
+    font-weight: $weight;
+    letter-spacing: $lsp;
+}

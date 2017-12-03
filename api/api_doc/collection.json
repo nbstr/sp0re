@@ -1,0 +1,63 @@
+{
+	"id": "dae96083-5760-f712-aa97-38c505e48c9d",
+	"name": "M&N",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"id": "1678c5a6-7d12-9372-2767-f1afced3b0d5",
+			"name": "user",
+			"description": "",
+			"order": [
+				"2e2542b9-d509-671d-879e-d8eb8c57d2ec",
+				"371817bd-a294-d58d-173e-e4a550d6397f"
+			],
+			"owner": "743023"
+		}
+	],
+	"timestamp": 1482094195975,
+	"owner": "743023",
+	"public": false,
+	"requests": [
+		{
+			"id": "2e2542b9-d509-671d-879e-d8eb8c57d2ec",
+			"headers": "Content-Type: application/json\n",
+			"url": "{{url}}/login",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1482094889807,
+			"name": "login",
+			"description": "```\n{\n    \"email\": \"string\", //required, email type\n    \"password\": \"string\" //required\n}\n```",
+			"collectionId": "dae96083-5760-f712-aa97-38c505e48c9d",
+			"responses": [],
+			"rawModeData": "{\n    \"email\": \"info@inklabs.be\",\n    \"password\": \"$\"\n}\n"
+		},
+		{
+			"id": "371817bd-a294-d58d-173e-e4a550d6397f",
+			"headers": "Content-Type: application/json\n",
+			"url": "{{url}}/users",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1482094865589,
+			"name": "register",
+			"description": "```\n{\n    \"email\": \"email\"                    //required\n    \"password\": \"string\",               //required\n    \"password_repeat\": \"string\",        //required\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \n    \"notification_level\": \"integer\",    //min:0 max:100 default:20  /  Customer receive a notification when a tank goes below this percentage\n   \n    \"push_notification_token\": \"string\",\n    \"push_os\" : \"string\",               //in: \"ios\",\"android\"\n    \n    \"address\":{                         //optional\n        \"street\": \"string\",    \n        \"num\": \"string\",\n        \"box\": \"string\",\n        \"postcode\": \"integer\",\n        \"city\": \"string\",\n        \"country\": \"string\"\n    }\n}\n```",
+			"collectionId": "dae96083-5760-f712-aa97-38c505e48c9d",
+			"responses": [],
+			"rawModeData": "{\n    \"email\": \"info@inklabs.be\",\n    \"password\": \"$\",\n    \"password_repeat\": \"$\",\n    \"first_name\":\"Nabil\",\n    \"last_name\":\"Kamel\"\n}"
+		}
+	]
+}
